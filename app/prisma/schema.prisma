@@ -1,0 +1,25 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model User {
+    id         Int    @id @default(autoincrement())
+    email      String @unique
+    first_name String @db.VarChar(100)
+    last_name  String @db.VarChar(100)
+    password   String
+
+    is_active   Boolean @default(true)
+    is_verified Boolean @default(false)
+
+    last_login DateTime
+    created_at DateTime @default(now())
+    updated_at DateTime @default(now())
+
+    @@map("trumiles_user")
+}
